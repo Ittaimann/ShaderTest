@@ -1,4 +1,4 @@
-﻿Shader "Tutorial1/Explanined" // this is the decleratinon of the shader for unity, essentially where is this in the menu
+﻿Shader "Tutorial/Tutorial1/Explanined" // this is the decleratinon of the shader for unity, essentially where is this in the menu
 {
     Properties // The properties availble to us in the material menu
     {

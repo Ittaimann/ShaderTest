@@ -3,6 +3,8 @@
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
+        _tipColor("tip color", Color) = (1,1,1,1)
+        _pitColor("pit color", Color) = (1,1,1,1)
     }
     SubShader
     {
@@ -35,13 +37,13 @@
 
             sampler2D _MainTex;
             float4 _MainTex_ST;
-
+            float4 _tipColor,_pitColor;
             v2f vert (appdata  v)
             {
                 v2f o;
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);
 
-                v.vertex +=float4(UnityObjectToWorldNormal(v.normal)*tex2Dlod(_MainTex,float4(o.uv*sin(_Time),0,1)).x,1);
+                v.vertex +=float4(UnityObjectToWorldNormal(v.normal)*tex2Dlod(_MainTex,float4(o.uv+(_Time.x),0,1)).x,1);
                 o.vertex = UnityObjectToClipPos(v.vertex);
                 UNITY_TRANSFER_FOG(o,o.vertex);
                 return o;
@@ -50,9 +52,8 @@
             fixed4 frag (v2f i) : SV_Target
             {
                 // sample the texture
-                fixed4 col = tex2D(_MainTex, i.uv);
+                fixed4 col =lerp(_tipColor,_pitColor, tex2Dlod(_MainTex,float4(i.uv+(_Time.x),0,4)).x);
                 // apply fog
-                UNITY_APPLY_FOG(i.fogCoord, col);
                 return col;
             }
             ENDCG

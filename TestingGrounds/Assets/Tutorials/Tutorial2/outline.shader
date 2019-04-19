@@ -2,12 +2,13 @@
 {
     Properties
     {
-        _MainTex ("Texture", 2D) = "white" {}
+        [PerRendererData]_MainTex ("Texture", 2D) = "white" {}
         _Noise ("Noise", 2D) = "white" {}
+        _Brightness("Outline Brightness", Range(0,8)) = 3.2
 
         _Tint("color tint",Color) = (1,1,1,1)
         _outline("outline Color",Color ) = (1,1,1,0)
-        _outLineSize("outline size", Range(1,2))=1
+        _outLineSize("Outline Width", Range(0,0.5)) = 0.003 
     }
     SubShader
     {
@@ -37,11 +38,11 @@
             sampler2D _MainTex,_Noise;
             float4 _MainTex_ST,_Noise_ST;
             float4 _outline;
-            float _outLineSize;
+            float _outLineSize,_Brightness;
             v2f vert (appdata_base v)
             {
                 v2f o;
-                o.vertex = UnityObjectToClipPos(v.vertex*_outLineSize);
+                o.vertex = UnityObjectToClipPos(v.vertex);
                 o.uv = TRANSFORM_TEX(v.texcoord, _MainTex);
                 o.vertex = UnityPixelSnap (o.vertex); // get it to be pixel snapped properly
                 return o;
@@ -52,52 +53,24 @@
                 // sample the texture
                  // to get the alpha out
                 fixed4 col = tex2D(_MainTex, i.uv); // used for masking
-                _outline*= col.a*_outline.a;
-                
-                
-                return _outline;
-            }
-            ENDCG
-        }
-       Pass{
-
-             CGPROGRAM
-            #pragma vertex vert
-            #pragma fragment frag
-            #include "UnityCG.cginc"
-
-            struct v2f
-            {
-                float2 uv : TEXCOORD0;
-                float4 vertex : SV_POSITION;
-            };
-
-            sampler2D _MainTex,_Noise;
-            float4 _MainTex_ST,_Noise_ST;
-
-            float4 _Tint;
-            float _mitigate;
-            v2f vert (appdata_base v)
-            {
-                v2f o;
-                o.vertex = UnityObjectToClipPos(v.vertex);
-                o.uv = TRANSFORM_TEX(v.texcoord , _MainTex);
-                o.vertex = UnityPixelSnap (o.vertex); // get it to be pixel snapped properly
-                return o;
-            }
-
-            fixed4 frag (v2f i) : SV_Target
-            {
-                // sample the texture
-                                
-                fixed4 col = tex2D(_MainTex,i.uv);
-
-                // apply fog
-                col*=_Tint;
-                col.rgb*=col.a; // to get the alpha out
+                col.rgb *= col.a;
+                      // Move sprite in 4 directions according to width, we only care about the alpha
+                float spriteLeft = tex2D(_MainTex,i.uv + float2(_outLineSize, 0)).a;
+                float spriteRight = tex2D(_MainTex,i.uv - float2(_outLineSize,  0)).a;
+                float spriteBottom = tex2D(_MainTex,i.uv + float2( 0 ,_outLineSize)).a;
+                float spriteTop = tex2D(_MainTex, i.uv - float2( 0 , _outLineSize)).a;
+               
+                // then combine
+                float4 result = (spriteRight + spriteLeft + spriteTop+ spriteBottom);
+                // delete original alpha to only leave outline
+                result.rgb *= (1-col.a);
+                // add color and brightness
+                float4 outlines = result * _outline;             
+                col.rgb = col.rgb + outlines;
                 return col;
             }
             ENDCG
         }
+     
     }
 }
