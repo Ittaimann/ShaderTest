@@ -7,9 +7,9 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Sprite
-  m_Shader: {fileID: 4800000, guid: 4c52d554a4f8b5d46ab25bf1f1edbb6a, type: 3}
-  m_ShaderKeywords: ETC1_EXTERNAL_ALPHA ORDER
+  m_Name: BlinnPhong
+  m_Shader: {fileID: 4800000, guid: d8eb2dbee6a5c2e4f9035c845f5ad4e2, type: 3}
+  m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -35,78 +35,47 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _Distort:
-        m_Texture: {fileID: 2800000, guid: 96318cf363b1ec9479543a3496c24ac8, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _EmissionMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: a5b9d6ac34cbfb349ba092db23f2a119, type: 3}
+        m_Texture: {fileID: 2800000, guid: bca9d1e7a945643439b3d1f2adbced4b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _Noise:
-        m_Texture: {fileID: 2800000, guid: 96318cf363b1ec9479543a3496c24ac8, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
         m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _PalleteTex:
-        m_Texture: {fileID: 2800000, guid: 0c3a788c50d22ea42b3e9f4f94bf67f9, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _distort:
-        m_Texture: {fileID: 2800000, guid: 96318cf363b1ec9479543a3496c24ac8, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _Brightness: 0.1
     - _BumpScale: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
-    - _EffectOffset: 0.1
-    - _EffectSize: 0.1
-    - _GRADIENT: 0
     - _GlossMapScale: 1
-    - _Glossiness: 0
+    - _Glossiness: 0.5
     - _GlossyReflections: 1
     - _Metallic: 0
     - _Mode: 0
-    - _Multiplier: 2
-    - _ONLY: 0
-    - _ORDER: 1
     - _OcclusionStrength: 1
-    - _Offset: 10
-    - _Opacity: 0.25
     - _Parallax: 0.02
-    - _Scale: 1.16
+    - _Smoothness: 0.79
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
-    - _SpeedX: 2.86
-    - _SpeedY: 1
     - _SrcBlend: 1
     - _UVSec: 0
     - _ZWrite: 1
-    - _mitigate: 0
-    - _outLineSize: 0.04
-    - _slider: 0.5
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _Tine: {r: 1, g: 1, b: 1, a: 1}
+    - _SpecularTint: {r: 1, g: 1, b: 1, a: 1}
     - _Tint: {r: 1, g: 1, b: 1, a: 1}
-    - _color: {r: 1, g: 1, b: 1, a: 1}
-    - _outline: {r: 0.11725705, g: 0.16037738, b: 0.121398665, a: 1}
+    - _tint: {r: 1, g: 1, b: 1, a: 1}
